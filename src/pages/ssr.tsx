@@ -17,7 +17,7 @@ export default function Ssr({ recommendedProducts }: HomeProps) {
   return (
     <Container>
       <Head>
-        <title>S.S.R - Server Side Rendering</title>
+        <title>S.S.R - Server Side Rendering - Realtime</title>
       </Head>
       {/* <img src={logo} alt=""/>
       <h1>ReactJS Structure</h1>
@@ -48,14 +48,13 @@ export default function Ssr({ recommendedProducts }: HomeProps) {
 }
 
 export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMGUxYjI1NWE3Njg0MDAxY2RmOTMwNyIsImVtYWlsIjoibWFyY2Vsb2hhdWJyaWhAZ21haWwuY29tIiwiaWF0IjoxNjExNzg2OTUxLCJleHAiOjE2MTE4NzMzNTF9.bYUb4G9u0okyGKlY8JZ4nDB9zp4kn4n_s9TzEZ8xASs';
-  const response = await fetch('http://servelx-api.duckdns.org:3001/api/products', {
+  const token = process.env.userToken;
+  const response = await fetch('https://servelx-api.duckdns.org:3001/api/products', {
     method: 'GET',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + token,
-      'Host': 'servelx-api.duckdns.org'
     }
   });
   const recommendedProducts = await response.json();

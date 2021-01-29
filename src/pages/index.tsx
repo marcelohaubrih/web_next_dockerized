@@ -10,22 +10,16 @@ interface IProduct {
 }
 
 const Home: React.FC = () => {
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMGUxYjI1NWE3Njg0MDAxY2RmOTMwNyIsImVtYWlsIjoibWFyY2Vsb2hhdWJyaWhAZ21haWwuY29tIiwiaWF0IjoxNjExNzg2OTUxLCJleHAiOjE2MTE4NzMzNTF9.bYUb4G9u0okyGKlY8JZ4nDB9zp4kn4n_s9TzEZ8xASs';
-
+  const token = process.env.userToken;
   const [recommendedProducts, setRecommendedProducts] = useState<IProduct[]>([]);
 
   useEffect(() => {
-    fetch('http://servelx-api.duckdns.org:3001/api/products', {
+    fetch('https://servelx-api.duckdns.org:3001/api/products', {
       method: 'GET',
       headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Credentials': 'true',
-        'Access-Control-Allow-Methods': 'GET,HEAD,OPTIONS,POST,PUT',
-        'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers',
         'Accept': 'application/json',
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + token,
-        'Host': 'servelx-api.duckdns.org'
       }
     }).then(response => {
       response.json().then(data => {
@@ -34,19 +28,6 @@ const Home: React.FC = () => {
       })
   });
   }, []);
-
-  // useEffect(() => {
-  //     fetch('http://servelx-api.duckdns.org:3001/api/products', {
-  //         method: 'GET',
-  //         headers: {
-  //           'Accept': 'application/json',
-  //           'Content-Type': 'application/json',
-  //           'Authorization': 'Bearer ' + token,
-  //           'Host': 'servelx-api.duckdns.org'
-  //         }
-  //       })
-  // }, []);
-
   return (
     <Container>
       <Head>
