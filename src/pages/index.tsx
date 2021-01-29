@@ -35,6 +35,11 @@ const Home: React.FC = () => {
       </Head>
        <div>
          <section>
+           <h1>Rotas</h1>
+           <p><a href="/">"/" - Página principal</a></p>
+           <p><a href="/csf">"/csf" - Página C.S.F - Client Side Fetching</a></p>
+           <p><a href="/ssr">"/ssr" - Página S.S.R - Server Side Rendering</a></p>
+           <p><a href="/ssg">"/ssg" - Página S.S.G - Static Site Generation</a></p>
            <h1>Products</h1>
            <ul>
              {recommendedProducts.map(recommendedProduct => {

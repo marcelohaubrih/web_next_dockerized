@@ -41,6 +41,7 @@ export default function ssg({ products }: ssgProps) {
              }
            </ul>
          </section>
+         <p><a href="/">"/" - Página principal</a></p>
        </div>
     </Container>
   )

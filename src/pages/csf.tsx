@@ -51,6 +51,7 @@ const Csf: React.FC = () => {
              }
            </ul>
          </section>
+         <p><a href="/">"/" - Página principal</a></p>
        </div>
     </Container>
   )

@@ -42,6 +42,7 @@ export default function Ssr({ recommendedProducts }: HomeProps) {
              }
            </ul>
          </section>
+         <p><a href="/">"/" - Página principal</a></p>
        </div>
     </Container>
   )
