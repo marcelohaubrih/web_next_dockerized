@@ -22,6 +22,13 @@ EXPOSE 80
 
 # Run container as non-root (unprivileged) user
 # The node user is provided in the Node.js Alpine base image
+ENV TZ=America/Sao_Paulo
+RUN apk update
+RUN apk upgrade
+RUN apk add ca-certificates && update-ca-certificates
+RUN apk add --update tzdata
+RUN rm -rf /var/cache/apk/*
+
 USER node
 
 # Run npm start script when container starts

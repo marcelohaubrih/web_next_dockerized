@@ -2,18 +2,19 @@ import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import { Container } from '../../../styles/pages/Home'
 
-interface IProduct {
+interface ICategory {
   _id: string;
   title: string;
   description: string;
-  url: string;
+  slug: string;
+  createdAt: string;
 }
 
 interface listProps {
-  products: IProduct[];
+  categorys: ICategory[];
 }
 
-export default function List({ products }: listProps) {
+export default function List({ categorys }: listProps) {
   return (
     <Container>
       <Head>
@@ -21,12 +22,12 @@ export default function List({ products }: listProps) {
       </Head>
        <div>
          <section>
-           <h1>Products</h1>
+           <h1>Categorys</h1>
            <ul>
-             {products.map(descProduct => {
+             {categorys.map(descCategory => {
                return (
-                 <li key={descProduct._id}>
-                   <a href={`/catalog/product/${descProduct._id}`}>{descProduct.title}</a>
+                 <li key={descCategory._id}>
+                   <a href={`/catalog/product/${descCategory._id}`}>{descCategory.title}</a>
                  </li>
                )
              })
@@ -42,7 +43,7 @@ export default function List({ products }: listProps) {
 
 export const getStaticProps: GetStaticProps<listProps> = async (context) => {
   const token = process.env.userToken;
-  const response = await fetch('https://servelx-api.duckdns.org:3001/api/products', {
+  const response = await fetch('https://servelx-api.duckdns.org:3001/api/categorys', {
     method: 'GET',
     headers: {
       'Accept': 'application/json',
@@ -50,11 +51,11 @@ export const getStaticProps: GetStaticProps<listProps> = async (context) => {
       'Authorization': 'Bearer ' + token,
     }
   });
-  const products = await response.json();
+  const categorys = await response.json();
 
   return {
     props: {
-      products,
+      categorys,
     },
     revalidate: 15,
   }
