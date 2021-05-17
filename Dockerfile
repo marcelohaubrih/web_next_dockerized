@@ -4,18 +4,19 @@ FROM node:alpine
 # Set working directory
 WORKDIR /usr/app
 
+RUN npm install --global pm2
 # Copy package.json and package-lock.json before other files
 # Utilise Docker cache to save re-installing dependencies if unchanged
 COPY ./package*.json ./
 
 # Install dependencies
-RUN yarn install
+RUN npm install
 
 # Copy all files
 COPY ./ ./
 
 # Build app
-RUN yarn build
+RUN npm run build
 
 # Expose the listening port
 EXPOSE 80
@@ -32,4 +33,4 @@ RUN rm -rf /var/cache/apk/*
 USER node
 
 # Run npm start script when container starts
-CMD [ "yarn", "start" ]
+CMD [ "pm2-runtime", "npm", "--", "start" ]

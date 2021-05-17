@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import Head from 'next/head'
-
-import logo from '../assets/logo.png'
+import Link from 'next/link'
 import { Container } from '../styles/pages/Home'
+import SEO from '@/components/SEO'
 
 interface IProduct {
   _id: string;
@@ -11,7 +10,7 @@ interface IProduct {
 
 const Csf: React.FC = () => {
   const [recommendedProducts, setRecommendedProducts] = useState<IProduct[]>([]);
-  const token = process.env.userToken;
+  const token = process.env.NEXT_PUBLIC_userToken;
   useEffect(() => {
     fetch('https://servelx-api.duckdns.org:3001/api/products', {
       method: 'GET',
@@ -30,9 +29,7 @@ const Csf: React.FC = () => {
 
   return (
     <Container>
-      <Head>
-        <title>C.S.F - Client Side Fetching</title>
-      </Head>
+      <SEO title="C.S.F - Client Side Fetching"/>
        <div>
          <h1>C.S.F - Client Side Fetching - Real-time</h1>
          <p>Página utilizando o sistema de CSF só se utiliza quando os dados tem que ser renderizados ao cliente de forma real-time</p>
@@ -51,7 +48,7 @@ const Csf: React.FC = () => {
              }
            </ul>
          </section>
-         <p><a href="/">"/" - Página principal</a></p>
+         <p><Link href="/"><a>"/" - Página principal</a></Link></p>
        </div>
     </Container>
   )

@@ -1,7 +1,8 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
-import Head from 'next/head'
 import { useRouter } from "next/dist/client/router"
 import { Container } from '../../../styles/pages/Home'
+import SEO from '@/components/SEO';
+import Link from 'next/link';
 
 interface IProduct {
   _id: string;
@@ -27,9 +28,7 @@ export default function Products({ product }: productProps) {
 
   return (
     <Container>
-      <Head>
-        <title>S.S.G - Static Site Generation</title>
-      </Head>
+      <SEO title="S.S.G - Static Site Generation" />
       <h1>Product - {router.query.slug}</h1>
       <section>
            <h1>Product</h1>
@@ -42,14 +41,14 @@ export default function Products({ product }: productProps) {
            <h3>CreatedAt: {product.createdAt}</h3>
 
       </section>
-      <p><a href="/catalog/products/list">"/catalog/products/list" - Página Listagem de Produtos</a></p>
+      <p><Link href="/catalog/products/list"><a>"/catalog/products/list" - Página Listagem de Produtos</a></Link></p>
     </Container>
   )
 }
 
 // Função para retornar quais páginas gerar estaticamente
 export const getStaticPaths: GetStaticPaths = async () => {
-  const token = process.env.userToken;
+  const token = process.env.NEXT_PUBLIC_userToken;
   const response = await fetch(`https://servelx-api.duckdns.org:3001/api/products`, {
     method: 'GET',
     headers: {
@@ -76,7 +75,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 // Função para gerar a página estaticamente
 export const getStaticProps: GetStaticProps<productProps> = async (context) => {
   const { slug } = context.params;
-  const token = process.env.userToken;
+  const token = process.env.NEXT_PUBLIC_userToken;
   const response = await fetch(`https://servelx-api.duckdns.org:3001/api/products/${slug}`, {
     method: 'GET',
     headers: {

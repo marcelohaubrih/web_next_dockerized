@@ -1,5 +1,6 @@
+import SEO from '@/components/SEO'
 import { GetStaticProps } from 'next'
-import Head from 'next/head'
+import Link from 'next/link'
 import { Container } from '../../../styles/pages/Home'
 
 interface ICategory {
@@ -17,9 +18,7 @@ interface listProps {
 export default function List({ categorys }: listProps) {
   return (
     <Container>
-      <Head>
-        <title>S.S.G - Static Site Generation</title>
-      </Head>
+      <SEO title="S.S.G - Static Site Generation" />
        <div>
          <section>
            <h1>Categorys</h1>
@@ -27,7 +26,7 @@ export default function List({ categorys }: listProps) {
              {categorys.map(descCategory => {
                return (
                  <li key={descCategory._id}>
-                   <a href={`/catalog/product/${descCategory._id}`}>{descCategory.title}</a>
+                   <Link href={`/catalog/product/${descCategory._id}`}><a>{descCategory.title}</a></Link>
                  </li>
                )
              })
@@ -35,14 +34,14 @@ export default function List({ categorys }: listProps) {
              }
            </ul>
          </section>
-         <p><a href="/">"/" - Página principal</a></p>
+         <p><Link href="/"><a>"/" - Página principal</a></Link></p>
        </div>
     </Container>
   )
 }
 
 export const getStaticProps: GetStaticProps<listProps> = async (context) => {
-  const token = process.env.userToken;
+  const token = process.env.NEXT_PUBLIC_userToken;
   const response = await fetch('https://servelx-api.duckdns.org:3001/api/categorys', {
     method: 'GET',
     headers: {

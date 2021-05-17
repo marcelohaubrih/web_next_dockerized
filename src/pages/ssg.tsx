@@ -1,5 +1,6 @@
+import SEO from '@/components/SEO'
 import { GetStaticProps } from 'next'
-import Head from 'next/head'
+import Link from 'next/link'
 
 import logo from '../assets/logo.png'
 import { Container } from '../styles/pages/Home'
@@ -16,13 +17,7 @@ interface ssgProps {
 export default function ssg({ products }: ssgProps) {
   return (
     <Container>
-      <Head>
-        <title>S.S.G - Static Site Generation</title>
-      </Head>
-      {/* <img src={logo} alt=""/>
-      <h1>ReactJS Structure</h1>
-      <p>A ReactJS + Next.js structure made by ServeLX.</p>
-       */}
+       <SEO title="S.S.G - Static Site Generation - 15s"/>
        <div>
          <h1>S.S.G - Static Site Generation - 15s</h1>
          <p>Página utilizando o sistema de SSG só se utiliza quando os dados tem que ser indexados pelos motores de busca e seus dados não necessitam de atualização real-time</p>
@@ -41,14 +36,14 @@ export default function ssg({ products }: ssgProps) {
              }
            </ul>
          </section>
-         <p><a href="/">"/" - Página principal</a></p>
+         <p><Link href="/"><a>"/" - Página principal</a></Link></p>
        </div>
     </Container>
   )
 }
 
 export const getStaticProps: GetStaticProps<ssgProps> = async (context) => {
-  const token = process.env.userToken;
+  const token = process.env.NEXT_PUBLIC_userToken;
   const response = await fetch('https://servelx-api.duckdns.org:3001/api/products', {
     method: 'GET',
     headers: {
